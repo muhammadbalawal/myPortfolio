@@ -1,16 +1,20 @@
 'use client';
 
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, useGLTF, Text } from '@react-three/drei';
-import { useRef, useEffect, useState } from 'react';
+import { OrbitControls, useGLTF, Text, Preload } from '@react-three/drei';
+import { useRef, useEffect, useState, Suspense } from 'react';
 import { Group } from 'three';
 import { v4 as uuidv4 } from 'uuid';
+
+// Preload the model
+useGLTF.preload('/models/LCD_module4.glb');
 
 const ArduinoModel = () => {
   const groupRef = useRef<Group>(null);
   const { scene } = useGLTF('/models/LCD_module4.glb');
 
   const [uniqueUsers, setUniqueUsers] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     let userId = localStorage.getItem('userId');
@@ -21,6 +25,7 @@ const ArduinoModel = () => {
 
     async function registerAndFetch() {
       try {
+        setIsLoading(true);
         await fetch('/api/unique-views', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -33,6 +38,8 @@ const ArduinoModel = () => {
         else console.error('API error:', data.error);
       } catch (error) {
         console.error('Fetch/register error:', error);
+      } finally {
+        setIsLoading(false);
       }
     }
 
@@ -53,7 +60,6 @@ const ArduinoModel = () => {
         color="black"
         anchorX="right"
         anchorY="bottom"
-        
       >
         Unique Users:
       </Text>
@@ -65,7 +71,7 @@ const ArduinoModel = () => {
         anchorX="center"
         anchorY="top"
       >
-        {uniqueUsers !== null ? uniqueUsers.toString() : '...'}
+        {isLoading ? '...' : (uniqueUsers !== null ? uniqueUsers.toString() : '0')}
       </Text>
     </group>
   );
@@ -74,13 +80,20 @@ const ArduinoModel = () => {
 export default function ArduinoScene() {
   const [fov, setFov] = useState(12.5);
   const [height, setHeight] = useState(200);
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     if (window.innerWidth < 768) {
       setFov(11);       // Wider view on mobile
       setHeight(100);   // Smaller vertical height for mobile layout
     }
+    
+    // Mark as ready after a short delay to ensure smooth rendering
+    const timer = setTimeout(() => setIsReady(true), 100);
+    return () => clearTimeout(timer);
   }, []);
+
+
 
   return (
     <div style={{ height: `${height}px`, width: '100%' }}>
@@ -92,6 +105,9 @@ export default function ArduinoScene() {
         <directionalLight position={[-1, 0, 0]} intensity={1} />
         <directionalLight position={[0, 0, 1]} intensity={1} />
         <directionalLight position={[0, 0, -1]} intensity={1} />
+        <Suspense fallback={null}>
+          <ArduinoModel />
+        </Suspense>
         <OrbitControls
           enableZoom={false}
           enablePan={false}
@@ -103,7 +119,7 @@ export default function ArduinoScene() {
           dampingFactor={0.1}
           rotateSpeed={0.3}
         />
-        <ArduinoModel />
+        <Preload all />
       </Canvas>
     </div>
   );

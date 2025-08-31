@@ -9,16 +9,28 @@ import { DATA } from "@/data/resume";
 import Link from "next/link";
 import Markdown from "react-markdown";
 
+import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 
-const ArduinoScene = dynamic(() => import('@/components/lcd-scene'), { ssr: false });
+const ArduinoScene = dynamic(() => import('@/components/lcd-scene'), { 
+  ssr: false,
+  loading: () => (
+    <div className="fixed inset-0 z-50 bg-background flex items-center justify-center">
+      <img src="/skate.gif" alt="Loading..." className="w-32 h-32" />
+    </div>
+  )
+});
 
 const BLUR_FADE_DELAY = 0.04;
 
 export default function Page() {
   return (
     <main className="flex flex-col min-h-[100dvh] space-y-10">
-      <ArduinoScene />
+      {/* 3D Arduino Scene with loading state */}
+      <div className="relative">
+        <ArduinoScene />
+      </div>
+      
       <section id="hero">
         <div className="mx-auto w-full max-w-2xl space-y-8">
           <div className="gap-2 flex justify-between">
@@ -27,7 +39,7 @@ export default function Page() {
                 delay={BLUR_FADE_DELAY}
                 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none"
                 yOffset={8}
-                text={`Hi, I'm ${DATA.name.split(" ")[0]} 👋`}
+                text={`Hi, I'm ${DATA.name.split(" ")[0]}`}
               />
               <BlurFadeText
                 className="max-w-[600px] md:text-xl"
@@ -35,12 +47,7 @@ export default function Page() {
                 text={DATA.description}
               />
             </div>
-            <BlurFade delay={BLUR_FADE_DELAY}>
-              <Avatar className="size-28 border">
-                <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
-                <AvatarFallback>{DATA.initials}</AvatarFallback>
-              </Avatar>
-            </BlurFade>
+
           </div>
         </div>
       </section>
@@ -169,9 +176,9 @@ export default function Page() {
                   I like building things
                 </h2>
                 <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  During my time in university, I attended{" "}
-                  {DATA.hackathons.length}+ hackathons. People from around the
-                  country would come together and build incredible things in 2-3
+                  During my time in Computer Science, I attended{" "}
+                  {DATA.hackathons.length}+ hackathons. People from different school 
+                  would come together and build incredible things in 2-3
                   days. It was eye-opening to see the endless possibilities
                   brought to life by a group of motivated and passionate
                   individuals.

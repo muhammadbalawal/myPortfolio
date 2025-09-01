@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 // Preload the model
 useGLTF.preload('/models/LCD_module4.glb');
 
-const ArduinoModel = () => {
+const ArduinoModel = ({ onModelLoaded }: { onModelLoaded: () => void }) => {
   const groupRef = useRef<Group>(null);
   const { scene } = useGLTF('/models/LCD_module4.glb');
 
@@ -40,11 +40,13 @@ const ArduinoModel = () => {
         console.error('Fetch/register error:', error);
       } finally {
         setIsLoading(false);
+
+        setTimeout(onModelLoaded, 100);
       }
     }
 
     registerAndFetch();
-  }, []);
+  }, [onModelLoaded]);
 
   return (
     <group ref={groupRef} position={[0, 0.2, 0]}>
@@ -73,54 +75,101 @@ const ArduinoModel = () => {
       >
         {isLoading ? '...' : (uniqueUsers !== null ? uniqueUsers.toString() : '0')}
       </Text>
-    </group>
+      
+        <Text
+          font="/fonts/hd44780.ttf"
+          position={[0.2, 0.1, 0.125]}
+
+          fontSize={0.04}
+          color="black"
+          anchorX="right"
+          anchorY="top"
+        >
+          Live 3D Model
+        </Text>
+      </group>
   );
 };
+
+const FullscreenLoader = ({ isVisible }: { isVisible: boolean }) => (
+  <div
+    className={`fixed inset-0 z-50 bg-background flex items-center justify-center transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
+      }`}
+  >
+    <div className="flex flex-col items-center space-y-6">
+      <img src="/skate.gif" alt="Loading..." className="w-32 h-32 md:w-40 md:h-40" />
+    </div>
+  </div>
+);
 
 export default function ArduinoScene() {
   const [fov, setFov] = useState(12.5);
   const [height, setHeight] = useState(200);
   const [isReady, setIsReady] = useState(false);
+  const [modelLoaded, setModelLoaded] = useState(false);
+  const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
     if (window.innerWidth < 768) {
       setFov(11);       // Wider view on mobile
       setHeight(100);   // Smaller vertical height for mobile layout
     }
-    
+
     // Mark as ready after a short delay to ensure smooth rendering
     const timer = setTimeout(() => setIsReady(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
+  const handleModelLoaded = () => {
 
+    setTimeout(() => {
+      setModelLoaded(true);
+
+      setTimeout(() => {
+        setShowLoader(false);
+      }, 100);
+
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new Event('arduino-model-loaded'));
+      }
+
+    }, 300);
+  };
 
   return (
-    <div style={{ height: `${height}px`, width: '100%' }}>
-      <Canvas camera={{ position: [0, 0, 3], fov }} shadows={false}>
-        <ambientLight intensity={1.5} />
-        <directionalLight position={[0, 1, 0]} intensity={1} />
-        <directionalLight position={[0, -1, 0]} intensity={1} />
-        <directionalLight position={[1, 0, 0]} intensity={1} />
-        <directionalLight position={[-1, 0, 0]} intensity={1} />
-        <directionalLight position={[0, 0, 1]} intensity={1} />
-        <directionalLight position={[0, 0, -1]} intensity={1} />
-        <Suspense fallback={null}>
-          <ArduinoModel />
-        </Suspense>
-        <OrbitControls
-          enableZoom={false}
-          enablePan={false}
-          minPolarAngle={Math.PI / 2 - 0.1}
-          maxPolarAngle={Math.PI / 2 + 0.1}
-          minAzimuthAngle={-0.1}
-          maxAzimuthAngle={0.1}
-          enableDamping
-          dampingFactor={0.1}
-          rotateSpeed={0.3}
-        />
-        <Preload all />
-      </Canvas>
-    </div>
+    <>
+      {/* Fullscreen loader overlay */}
+      <FullscreenLoader isVisible={showLoader} />
+
+      {/* 3D Scene - always rendered but initially hidden */}
+
+      <div style={{ height: `${height}px`, width: '100%' }}>
+        <Canvas camera={{ position: [0, 0, 3], fov }} shadows={false}>
+
+          <ambientLight intensity={1.5} />
+          <directionalLight position={[0, 1, 0]} intensity={1} />
+          <directionalLight position={[0, -1, 0]} intensity={1} />
+          <directionalLight position={[1, 0, 0]} intensity={1} />
+          <directionalLight position={[-1, 0, 0]} intensity={1} />
+          <directionalLight position={[0, 0, 1]} intensity={1} />
+          <directionalLight position={[0, 0, -1]} intensity={1} />
+          <Suspense fallback={null}>
+            <ArduinoModel onModelLoaded={handleModelLoaded} />
+          </Suspense>
+          <OrbitControls
+            enableZoom={false}
+            enablePan={false}
+            minPolarAngle={Math.PI / 2 - 0.1}
+            maxPolarAngle={Math.PI / 2 + 0.1}
+            minAzimuthAngle={-0.1}
+            maxAzimuthAngle={0.1}
+            enableDamping
+            dampingFactor={0.1}
+            rotateSpeed={0.3}
+          />
+          <Preload all />
+        </Canvas>
+      </div>
+    </>
   );
 }

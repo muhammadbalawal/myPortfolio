@@ -11,18 +11,12 @@ export const DATA = {
   summary: "I’ve always loved exploring electronics and software. Over the past few years, I’ve built projects, taken part in hackathons, and connected with others at networking events. These experiences have helped me sharpen my technical skills, sparked my interest in startups and creativity, and inspired me to turn ideas into real-world solutions. I enjoy challenging myself with new technologies, collaborating with like-minded people, and constantly finding ways to grow as a builder",
   avatarUrl: "/me.png",
   skills: [
-    "React",
-    "Next.js",
-    "Typescript",
-    "Node.js",
-    "Python",
-    "Go",
-    "Postgres",
-    "Docker",
-    "Kubernetes",
-    "Java",
-    "C++",
-  ],
+    "C#", "Python", "TypeScript", "JavaScript", "SQL", "NoSQL", "Kotlin", "Bash",
+    "ASP.NET Core", "React Native", "Next.js", "Node.js", "Express.js", "FastAPI", "Flask",
+    "MongoDB", "PostgreSQL", "SQL Server", "Supabase",
+    "Git", "JIRA", "Agile", "Postman", "CI/CD", "GitHub Actions", "AWS S3", "Azure", "Docker", 
+    "Microsoft 365", "Figma", "AutoCAD"
+   ],
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },
     { href: "/blog", icon: NotebookIcon, label: "Blog" },
@@ -33,31 +27,26 @@ export const DATA = {
     social: {
       GitHub: {
         name: "GitHub",
-        url: "https://dub.sh/dillion-github",
+        url: "https://github.com/muhammadbalawal",
         icon: Icons.github,
 
         navbar: true,
       },
       LinkedIn: {
         name: "LinkedIn",
-        url: "https://dub.sh/dillion-linkedin",
+        url: "https://www.linkedin.com/in/muhammadbalawal/",
         icon: Icons.linkedin,
 
         navbar: true,
       },
-      X: {
-        name: "X",
-        url: "https://dub.sh/dillion-twitter",
-        icon: Icons.x,
+      Devpost: {
+        name: "Devpost",
+        url: "https://devpost.com/muhammadbalawal",
+        icon: Icons.devpost,
 
         navbar: true,
       },
-      Youtube: {
-        name: "Youtube",
-        url: "https://dub.sh/dillion-youtube",
-        icon: Icons.youtube,
-        navbar: true,
-      },
+
       email: {
         name: "Send Email",
         url: "#",
@@ -100,7 +89,7 @@ export const DATA = {
       location: "Vaudreuil-Dorion, CA",
       title: "Team Member",
       logoUrl: "/partysurpriseLogo.jpg",
-      start: "April 2024",
+      start: "March 2024",
       end: "June 2024",
       description:
         "Collaborated with a team to update and maintain the website using WordPress, ensuring an engaging and up-to-date online presence. Captured high-quality images and managed social media platforms to enhance brand visibility and audience engagement. Implemented SEO strategies to improve search engine rankings, driving more organic traffic to the store's website.",
@@ -118,26 +107,25 @@ export const DATA = {
   ],
   projects: [
     {
-      title: "Chat Collect",
-      href: "https://chatcollect.com",
-      dates: "Jan 2024 - Feb 2024",
+      title: "Sentinel",
+      href: "https://devpost.com/software/sentintel",
+      dates: "April 2025",
       active: true,
       description:
-        "With the release of the [OpenAI GPT Store](https://openai.com/blog/introducing-the-gpt-store), I decided to build a SaaS which allows users to collect email addresses from their GPT users. This is a great way to build an audience and monetize your GPT API usage.",
+        "Hackathon Winner – 1st Place @ JACHacks 2025, Built a real time traffic accident detection platform using live city camera feeds. Used machine learning to detect crashes, Gemini AI to auto generate reports, and Twilio to instantly notify emergency services all in seconds.",
       technologies: [
-        "Next.js",
-        "Typescript",
-        "PostgreSQL",
-        "Prisma",
-        "TailwindCSS",
-        "Stripe",
-        "Shadcn UI",
-        "Magic UI",
+        "gemini-ai-api",
+        "leaflet",
+        "mongodb",
+        "nextjs",
+        "tensorflow-(coco-ssd)",
+        "twilio",
+        "vercel",
       ],
       links: [
         {
-          type: "Website",
-          href: "https://chatcollect.com",
+          type: "Devpost",
+          href: "https://devpost.com/software/sentintel",
           icon: <Icons.globe className="size-3" />,
         },
       ],
@@ -146,21 +134,18 @@ export const DATA = {
         "https://pub-83c5db439b40468498f97946200806f7.r2.dev/chat-collect.mp4",
     },
     {
-      title: "Magic UI",
+      title: "Break Mates",
       href: "https://magicui.design",
       dates: "June 2023 - Present",
       active: true,
       description:
-        "Designed, developed and sold animated UI components for developers.",
+        "Used by multiple CEGEPs and universities, Break Mates helps students connect with peers who share the same break times. It’s a simple way to meet new friends, coordinate breaks, and stay socially connected.",
       technologies: [
-        "Next.js",
-        "Typescript",
-        "PostgreSQL",
-        "Prisma",
+        "React Native",
+        "TypeScript",
+        "Supabase",
         "TailwindCSS",
-        "Stripe",
-        "Shadcn UI",
-        "Magic UI",
+        "Expo",
       ],
       links: [
         {
@@ -168,76 +153,9 @@ export const DATA = {
           href: "https://magicui.design",
           icon: <Icons.globe className="size-3" />,
         },
-        {
-          type: "Source",
-          href: "https://github.com/magicuidesign/magicui",
-          icon: <Icons.github className="size-3" />,
-        },
       ],
       image: "",
       video: "https://cdn.magicui.design/bento-grid.mp4",
-    },
-    {
-      title: "llm.report",
-      href: "https://llm.report",
-      dates: "April 2023 - September 2023",
-      active: true,
-      description:
-        "Developed an open-source logging and analytics platform for OpenAI: Log your ChatGPT API requests, analyze costs, and improve your prompts.",
-      technologies: [
-        "Next.js",
-        "Typescript",
-        "PostgreSQL",
-        "Prisma",
-        "TailwindCSS",
-        "Shadcn UI",
-        "Magic UI",
-        "Stripe",
-        "Cloudflare Workers",
-      ],
-      links: [
-        {
-          type: "Website",
-          href: "https://llm.report",
-          icon: <Icons.globe className="size-3" />,
-        },
-        {
-          type: "Source",
-          href: "https://github.com/dillionverma/llm.report",
-          icon: <Icons.github className="size-3" />,
-        },
-      ],
-      image: "",
-      video: "https://cdn.llm.report/openai-demo.mp4",
-    },
-    {
-      title: "Automatic Chat",
-      href: "https://automatic.chat",
-      dates: "April 2023 - March 2024",
-      active: true,
-      description:
-        "Developed an AI Customer Support Chatbot which automatically responds to customer support tickets using the latest GPT models.",
-      technologies: [
-        "Next.js",
-        "Typescript",
-        "PostgreSQL",
-        "Prisma",
-        "TailwindCSS",
-        "Shadcn UI",
-        "Magic UI",
-        "Stripe",
-        "Cloudflare Workers",
-      ],
-      links: [
-        {
-          type: "Website",
-          href: "https://automatic.chat",
-          icon: <Icons.globe className="size-3" />,
-        },
-      ],
-      image: "",
-      video:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/automatic-chat.mp4",
     },
   ],
   hackathons: [

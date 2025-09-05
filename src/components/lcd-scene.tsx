@@ -75,19 +75,24 @@ const ArduinoModel = ({ onModelLoaded }: { onModelLoaded: () => void }) => {
       >
         {isLoading ? '...' : (uniqueUsers !== null ? uniqueUsers.toString() : '0')}
       </Text>
-      
-        <Text
-          font="/fonts/hd44780.ttf"
-          position={[0.2, 0.1, 0.125]}
 
-          fontSize={0.04}
-          color="black"
-          anchorX="right"
-          anchorY="top"
-        >
-          Live 3D Model
-        </Text>
-      </group>
+
+      <mesh position={[-0.03, 0.03, 0.124]}>
+        <planeGeometry args={[0.5, 0.1]} />
+        <meshBasicMaterial color="#f0f0f0" transparent opacity={1} />
+      </mesh>
+      <Text
+        font="/fonts/hd44780.ttf"
+        position={[0.2, 0.05, 0.125]}
+
+        fontSize={0.04}
+        color="black"
+        anchorX="right"
+        anchorY="top"
+      >
+        Live 3D Model
+      </Text>
+    </group>
   );
 };
 

@@ -22,9 +22,9 @@ export default function Page() {
   return (
     <main className="flex flex-col min-h-[100dvh] space-y-10">
       {/* 3D Arduino Scene with loading state */}
-      <div className="relative">
+      {/* <div className="relative">
         <ArduinoScene />
-      </div>
+      </div> */}
       
       <section id="hero">
         <div className="mx-auto w-full max-w-2xl space-y-8">

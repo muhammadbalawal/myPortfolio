@@ -102,7 +102,10 @@ const FullscreenLoader = ({ isVisible }: { isVisible: boolean }) => (
       }`}
   >
     <div className="flex flex-col items-center space-y-6">
-      <img src="/skate.gif" alt="Loading..." className="w-32 h-32 md:w-40 md:h-40" />
+      {/* Light mode skate gif */}
+      <img src="/skate.gif" alt="Loading..." className="w-32 h-32 md:w-40 md:h-40 dark:hidden" />
+      {/* Dark mode skate gif */}
+      <img src="/blackskate.gif" alt="Loading..." className="w-32 h-32 md:w-40 md:h-40 hidden dark:block" />
     </div>
   </div>
 );

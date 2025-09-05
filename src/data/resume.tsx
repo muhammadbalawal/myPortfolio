@@ -60,7 +60,7 @@ export const DATA = {
   work: [
     {
       company: "Desnine",
-      href: "https://atomic.finance",
+      href: "https://desnine.com",
       badges: [],
       location: "Remote",
       title: "Developer Intern",
@@ -72,7 +72,7 @@ export const DATA = {
     },
     {
       company: "Solaire Canada Solar",
-      href: "https://atomic.finance",
+      href: "https://solairecanada.com",
       badges: [],
       location: "Pointe-Claire, CA",
       title: "Project Developer Intern",
@@ -84,7 +84,7 @@ export const DATA = {
     },
     {
       company: "Party Surprise",
-      href: "https://atomic.finance",
+      href: "https://partysurprise.ca",
       badges: [],
       location: "Vaudreuil-Dorion, CA",
       title: "Team Member",

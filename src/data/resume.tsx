@@ -126,12 +126,12 @@ export const DATA = {
         {
           type: "Devpost",
           href: "https://devpost.com/software/sentintel",
-          icon: <Icons.globe className="size-3" />,
+          icon: <Icons.devpost className="size-3" />,
         },
       ],
-      image: "",
+      image: "/sentinel.jpg",
       video:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/chat-collect.mp4",
+        "",
     },
     {
       title: "Break Mates",
@@ -141,6 +141,7 @@ export const DATA = {
       description:
         "Used by multiple CEGEPs and universities, Break Mates helps students connect with peers who share the same break times. It’s a simple way to meet new friends, coordinate breaks, and stay socially connected.",
       technologies: [
+        "TensorFlow NSFWJS",
         "React Native",
         "TypeScript",
         "Supabase",
@@ -149,13 +150,35 @@ export const DATA = {
       ],
       links: [
         {
-          type: "Website",
-          href: "https://magicui.design",
+          type: "App Store",
+          href: "https://apps.apple.com/us/app/break-mates/id6751444568",
           icon: <Icons.globe className="size-3" />,
         },
       ],
-      image: "",
-      video: "https://cdn.magicui.design/bento-grid.mp4",
+      image: "/breakmatesapp.png",
+      video: "",
+    },
+    {
+      title: "Gurobu",
+      href: "https://magicui.design",
+      dates: "April 2021 - May 2021",
+      active: true,
+      description:
+      "Gurobu is a communication glove that translates sign language into text, helping bridge the gap between ASL users and non-signers.",
+      technologies: [
+        "Arduino",
+        "Flex Sensors",
+        "Motion Sensors",
+      ],
+      links: [
+        {
+          type: "youtube",
+          href: "https://www.youtube.com/watch?v=l4LKDM_NZd4",
+          icon: <Icons.youtube className="size-3" />,
+        },
+      ],
+      image: "/gurobo.gif",
+      video: "",
     },
   ],
   hackathons: [
@@ -172,7 +195,7 @@ export const DATA = {
           type: "Devpost",
           title: "Devpost",
           href: "https://devpost.com/software/eyecrop",
-          icon: <Icons.globe className="size-3" />,
+          icon: <Icons.devpost className="size-3" />,
           text: "Devpost",
         },
       ],
@@ -190,7 +213,7 @@ export const DATA = {
           type: "Devpost",
           title: "Devpost",
           href: "https://devpost.com/software/interace",
-          icon: <Icons.globe className="size-3" />,
+          icon: <Icons.devpost className="size-3" />,
           text: "Devpost",
         },
       ],
@@ -208,7 +231,7 @@ export const DATA = {
           type: "Devpost",
           title: "Devpost",
           href: "https://devpost.com/software/echo-yql8zg",
-          icon: <Icons.globe className="size-3" />,
+          icon: <Icons.devpost className="size-3" />,
           text: "Devpost",
         },
       ],
@@ -226,7 +249,7 @@ export const DATA = {
           type: "Devpost",
           title: "Devpost",
           href: "https://devpost.com/software/sentintel",
-          icon: <Icons.globe className="size-3" />,
+          icon: <Icons.devpost className="size-3" />,
           text: "Devpost",
         },
       ],
@@ -244,7 +267,7 @@ export const DATA = {
           type: "Devpost",
           title: "Devpost",
           href: "https://devpost.com/software/synapse-3r7pje",
-          icon: <Icons.globe className="size-3" />,
+          icon: <Icons.devpost className="size-3" />,
           text: "Devpost",
         },
       ],

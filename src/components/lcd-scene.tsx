@@ -6,12 +6,14 @@ import { useRef, useEffect, useState, Suspense } from 'react';
 import { Group } from 'three';
 import { v4 as uuidv4 } from 'uuid';
 
-// Preload the model
+// Preload both models
 useGLTF.preload('/models/LCD_module4.glb');
+useGLTF.preload('/models/mobile.glb');
 
-const ArduinoModel = ({ onModelLoaded }: { onModelLoaded: () => void }) => {
+const ArduinoModel = ({ onModelLoaded, isMobile }: { onModelLoaded: () => void; isMobile: boolean }) => {
   const groupRef = useRef<Group>(null);
   const { scene } = useGLTF('/models/LCD_module4.glb');
+  const { scene: mobileScene } = useGLTF('/models/mobile.glb');
 
   const [uniqueUsers, setUniqueUsers] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -40,7 +42,6 @@ const ArduinoModel = ({ onModelLoaded }: { onModelLoaded: () => void }) => {
         console.error('Fetch/register error:', error);
       } finally {
         setIsLoading(false);
-
         setTimeout(onModelLoaded, 100);
       }
     }
@@ -48,17 +49,65 @@ const ArduinoModel = ({ onModelLoaded }: { onModelLoaded: () => void }) => {
     registerAndFetch();
   }, [onModelLoaded]);
 
+  // Desktop version
+  if (!isMobile) {
+    return (
+      <group ref={groupRef} position={[0, 0.2, 0]}>
+        <primitive object={scene} scale={0.1} rotation={[Math.PI / 2, 0, 0]} />
+        <mesh position={[0.59, -0.192, 0.12]} scale={[0.58, 0.14, 0]}>
+          <planeGeometry />
+          <meshBasicMaterial color="green" />
+        </mesh>
+        <Text
+          font="/fonts/hd44780.ttf"
+          position={[0.82, -0.18, 0.125]}
+          fontSize={0.045}
+          color="black"
+          anchorX="right"
+          anchorY="bottom"
+        >
+          Unique Users:
+        </Text>
+        <Text
+          font="/fonts/hd44780.ttf"
+          position={[0.59, -0.192, 0.125]}
+          fontSize={0.045}
+          color="black"
+          anchorX="center"
+          anchorY="top"
+        >
+          {isLoading ? '...' : (uniqueUsers !== null ? uniqueUsers.toString() : '0')}
+        </Text>
+        <mesh position={[-0.03, 0.03, 0.124]}>
+          <planeGeometry args={[0.5, 0.1]} />
+          <meshBasicMaterial color="#f0f0f0" transparent opacity={1} />
+        </mesh>
+        <Text
+          font="/fonts/hd44780.ttf"
+          position={[0.2, 0.05, 0.125]}
+          fontSize={0.04}
+          color="black"
+          anchorX="right"
+          anchorY="top"
+        >
+          Live 3D Model
+        </Text>
+      </group>
+    );
+  }
+
+  // Mobile version
   return (
-    <group ref={groupRef} position={[0, 0.2, 0]}>
-      <primitive object={scene} scale={0.1} rotation={[Math.PI / 2, 0, 0]} />
-      <mesh position={[0.59, -0.192, 0.12]} scale={[0.58, 0.14, 0]}>
+    <group ref={groupRef} position={[0, 0, 0]}>
+      <primitive object={mobileScene} scale={0.5} rotation={[0, 0, 0]} />
+      <mesh position={[0.001, 0.001, 0.02]} scale={[1, 0.25, 0]}>
         <planeGeometry />
         <meshBasicMaterial color="green" />
       </mesh>
       <Text
         font="/fonts/hd44780.ttf"
-        position={[0.82, -0.18, 0.125]}
-        fontSize={0.045}
+        position={[0.4, 0.001, 0.03]}
+        fontSize={0.07}
         color="black"
         anchorX="right"
         anchorY="bottom"
@@ -67,30 +116,27 @@ const ArduinoModel = ({ onModelLoaded }: { onModelLoaded: () => void }) => {
       </Text>
       <Text
         font="/fonts/hd44780.ttf"
-        position={[0.59, -0.192, 0.125]}
-        fontSize={0.045}
+        position={[0.01, -0.04, 0.03]}
+        fontSize={0.07}
         color="black"
         anchorX="center"
         anchorY="top"
       >
         {isLoading ? '...' : (uniqueUsers !== null ? uniqueUsers.toString() : '0')}
       </Text>
-
-
-      <mesh position={[-0.03, 0.03, 0.124]}>
-        <planeGeometry args={[0.5, 0.1]} />
+      <mesh position={[-0.02, 0.2, 0.104]}>
+        <planeGeometry args={[0.4, 0.08]} />
         <meshBasicMaterial color="#f0f0f0" transparent opacity={1} />
       </mesh>
       <Text
         font="/fonts/hd44780.ttf"
-        position={[0.2, 0.05, 0.125]}
-
-        fontSize={0.04}
+        position={[0.17, 0.21, 0.106]}
+        fontSize={0.039}
         color="black"
         anchorX="right"
         anchorY="top"
       >
-        Live 3D Model
+        Interactive
       </Text>
     </group>
   );
@@ -116,20 +162,38 @@ export default function ArduinoScene() {
   const [isReady, setIsReady] = useState(false);
   const [modelLoaded, setModelLoaded] = useState(false);
   const [showLoader, setShowLoader] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    if (window.innerWidth < 768) {
-      setFov(11);       // Wider view on mobile
-      setHeight(100);   // Smaller vertical height for mobile layout
-    }
+    const checkScreenSize = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      
+      if (mobile) {
+        setFov(11);       // Wider view on mobile
+        setHeight(100);   // Smaller vertical height for mobile layout
+      } else {
+        setFov(12.5);     // Default desktop FOV
+        setHeight(200);   // Default desktop height
+      }
+    };
+
+    // Initial check
+    checkScreenSize();
+
+    // Add resize listener
+    window.addEventListener('resize', checkScreenSize);
 
     // Mark as ready after a short delay to ensure smooth rendering
     const timer = setTimeout(() => setIsReady(true), 100);
-    return () => clearTimeout(timer);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', checkScreenSize);
+    };
   }, []);
 
   const handleModelLoaded = () => {
-
     setTimeout(() => {
       setModelLoaded(true);
 
@@ -140,7 +204,6 @@ export default function ArduinoScene() {
       if (typeof window !== 'undefined') {
         window.dispatchEvent(new Event('arduino-model-loaded'));
       }
-
     }, 300);
   };
 
@@ -150,10 +213,8 @@ export default function ArduinoScene() {
       <FullscreenLoader isVisible={showLoader} />
 
       {/* 3D Scene - always rendered but initially hidden */}
-
       <div style={{ height: `${height}px`, width: '100%' }}>
         <Canvas camera={{ position: [0, 0, 3], fov }} shadows={false}>
-
           <ambientLight intensity={1.5} />
           <directionalLight position={[0, 1, 0]} intensity={1} />
           <directionalLight position={[0, -1, 0]} intensity={1} />
@@ -162,7 +223,7 @@ export default function ArduinoScene() {
           <directionalLight position={[0, 0, 1]} intensity={1} />
           <directionalLight position={[0, 0, -1]} intensity={1} />
           <Suspense fallback={null}>
-            <ArduinoModel onModelLoaded={handleModelLoaded} />
+            <ArduinoModel onModelLoaded={handleModelLoaded} isMobile={isMobile} />
           </Suspense>
           <OrbitControls
             enableZoom={false}

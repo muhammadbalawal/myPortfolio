@@ -7,8 +7,8 @@ import { Group } from "three";
 import { v4 as uuidv4 } from "uuid";
 
 // Preload both models
-useGLTF.preload("/models/LCD_module4.glb");
-// useGLTF.preload("/models/mobile.glb");
+// useGLTF.preload("/models/LCD_module4.glb");
+useGLTF.preload("/models/mobile.glb");
 
 const ArduinoModel = ({
     onModelLoaded,
@@ -18,7 +18,7 @@ const ArduinoModel = ({
     isMobile: boolean;
 }) => {
     const groupRef = useRef<Group>(null);
-    const { scene } = useGLTF("/models/LCD_module4.glb");
+    const { scene } = useGLTF("/models/mobile.glb");
     const { scene: mobileScene } = useGLTF("/models/mobile.glb");
 
     const [uniqueUsers, setUniqueUsers] = useState<number | null>(null);

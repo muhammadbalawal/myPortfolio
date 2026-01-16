@@ -47,17 +47,17 @@ export default function Page() {
             {/* Scrollable Right Content */}
             <main className="flex-1 overflow-y-auto">
                 <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-16 space-y-6">
-            <section id="live-data" className="mt-96">
+            <section id="live-data" className="mt-20">
                 <div className="flex min-h-0 flex-col gap-y-3">
                     <BlurFade delay={BLUR_FADE_DELAY * 5}>
                         <div className="relative w-full mb-2 flex justify-center">
-                            <div style={{ transform: 'scale(1.75)', transformOrigin: 'center' }}>
+                            <div style={{ transform: 'scale(1.2)', transformOrigin: 'center' }}>
                                 <CircuitSVG />
                             </div>
                         </div>
                     </BlurFade>
                     <BlurFade delay={BLUR_FADE_DELAY * 5.5}>
-                        <div className="mb-4 mt-4 flex justify-start">
+                        <div className="mb-4 mt-4 flex justify-center">
                             <div className="inline-block bg-gray-200/90 dark:bg-gray-800/90 px-3 py-2 rounded-sm backdrop-blur-sm shadow-lg">
                                 <p 
                                     className="text-black dark:text-white text-xs"

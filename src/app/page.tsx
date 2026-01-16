@@ -11,7 +11,7 @@ import Markdown from "react-markdown";
 
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
-import LCDOverlay from "@/components/lcd-overlay";
+import CircuitSVG from "@/components/circuit-svg";
 
 const ArduinoScene = dynamic(() => import("@/components/lcd-scene"), {
     ssr: false,
@@ -27,13 +27,13 @@ export default function Page() {
                 <div className="space-y-6 max-w-md">
                     <BlurFadeText
                         delay={BLUR_FADE_DELAY}
-                        className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tighter font-header text-black"
+                        className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tighter font-header text-black dark:text-white"
                         yOffset={8}
                         text={`Hi, I'm ${DATA.name.split(" ")[1]}`}
                     />
                     <div className="space-y-3">
                         <BlurFade delay={BLUR_FADE_DELAY * 2}>
-                            <p className="text-xl md:text-2xl lg:text-3xl font-semibold text-black">Mobile Application Developer</p>
+                            <p className="text-xl md:text-2xl lg:text-3xl font-semibold text-black dark:text-white">Mobile Application Developer</p>
                         </BlurFade>
                         <BlurFade delay={BLUR_FADE_DELAY * 3}>
                             <Markdown className="prose max-w-full text-pretty font-sans text-lg text-muted-foreground dark:prose-invert">
@@ -47,20 +47,17 @@ export default function Page() {
             {/* Scrollable Right Content */}
             <main className="flex-1 overflow-y-auto">
                 <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-16 space-y-6">
-            <section id="work">
+            <section id="live-data" className="mt-96">
                 <div className="flex min-h-0 flex-col gap-y-3">
                     <BlurFade delay={BLUR_FADE_DELAY * 5}>
-                        <div className="relative w-full mb-4">
-                            <img 
-                                src="/circuit.png" 
-                                alt="Circuit" 
-                                className="w-full h-auto"
-                            />
-                            <LCDOverlay />
+                        <div className="relative w-full mb-2 flex justify-center">
+                            <div style={{ transform: 'scale(1.75)', transformOrigin: 'center' }}>
+                                <CircuitSVG />
+                            </div>
                         </div>
                     </BlurFade>
                     <BlurFade delay={BLUR_FADE_DELAY * 5.5}>
-                        <div className="mb-2">
+                        <div className="mb-4 mt-4 flex justify-start">
                             <div className="inline-block bg-gray-200/90 dark:bg-gray-800/90 px-3 py-2 rounded-sm backdrop-blur-sm shadow-lg">
                                 <p 
                                     className="text-black dark:text-white text-xs"
@@ -69,13 +66,17 @@ export default function Page() {
                                         fontFeatureSettings: '"liga" off'
                                     }}
                                 >
-                                    Work Experience
+                                    * Click the pulsing circle to refresh data
                                 </p>
                             </div>
                         </div>
-                        <h2 className="text-xl font-bold">Work Experience</h2>
                     </BlurFade>
-                    {DATA.work.map((work, id) => (
+                </div>
+            </section>
+            <section id="work">
+                <div className="flex min-h-0 flex-col gap-y-3">
+                    {/* <h2 className="text-xl font-bold">Work Experience</h2> */}
+                    {/* {DATA.work.map((work, id) => (
                         <BlurFade
                             key={work.company}
                             delay={BLUR_FADE_DELAY * 6 + id * 0.05}
@@ -94,10 +95,10 @@ export default function Page() {
                                 description={work.description}
                             />
                         </BlurFade>
-                    ))}
+                    ))} */}
                 </div>
             </section>
-            <section id="education">
+            {/* <section id="education">
                 <div className="flex min-h-0 flex-col gap-y-3">
                     <BlurFade delay={BLUR_FADE_DELAY * 7}>
                         <h2 className="text-xl font-bold">Education</h2>
@@ -247,7 +248,7 @@ export default function Page() {
                         </div>
                     </BlurFade>
                 </div>
-            </section>
+            </section> */}
                 </div>
             </main>
         </div>

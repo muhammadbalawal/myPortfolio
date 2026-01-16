@@ -11,6 +11,7 @@ import Markdown from "react-markdown";
 
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
+import LCDOverlay from "@/components/lcd-overlay";
 
 const ArduinoScene = dynamic(() => import("@/components/lcd-scene"), {
     ssr: false,
@@ -20,44 +21,58 @@ const BLUR_FADE_DELAY = 0.04;
 
 export default function Page() {
     return (
-        <main className="flex flex-col min-h-[100dvh] space-y-10">
-            {/* 3D Arduino Scene with loading state */}
-            {/* <div className="relative">
-        <ArduinoScene />
-      </div> */}
-
-            <section id="hero">
-                <div className="mx-auto w-full max-w-2xl space-y-8">
-                    <div className="gap-2 flex justify-between">
-                        <div className="flex-col flex flex-1 space-y-1.5">
-                            <BlurFadeText
-                                delay={BLUR_FADE_DELAY}
-                                className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none"
-                                yOffset={8}
-                                text={`Hi, I'm ${DATA.name.split(" ")[0]}`}
-                            />
-                            <BlurFadeText
-                                className="max-w-[600px] md:text-xl"
-                                delay={BLUR_FADE_DELAY}
-                                text={DATA.description}
-                            />
-                        </div>
+        <div className="flex min-h-screen">
+            {/* Sticky Left Sidebar */}
+            <aside className="sticky top-0 h-screen flex items-center justify-center px-8 md:px-12 lg:px-16 w-full md:w-2/5 lg:w-1/3">
+                <div className="space-y-6 max-w-md">
+                    <BlurFadeText
+                        delay={BLUR_FADE_DELAY}
+                        className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tighter font-header text-black"
+                        yOffset={8}
+                        text={`Hi, I'm ${DATA.name.split(" ")[1]}`}
+                    />
+                    <div className="space-y-3">
+                        <BlurFade delay={BLUR_FADE_DELAY * 2}>
+                            <p className="text-xl md:text-2xl lg:text-3xl font-semibold text-black">Mobile Application Developer</p>
+                        </BlurFade>
+                        <BlurFade delay={BLUR_FADE_DELAY * 3}>
+                            <Markdown className="prose max-w-full text-pretty font-sans text-lg text-muted-foreground dark:prose-invert">
+                                {DATA.summary}
+                            </Markdown>
+                        </BlurFade>
                     </div>
                 </div>
-            </section>
-            <section id="about">
-                <BlurFade delay={BLUR_FADE_DELAY * 3}>
-                    <h2 className="text-xl font-bold">About</h2>
-                </BlurFade>
-                <BlurFade delay={BLUR_FADE_DELAY * 4}>
-                    <Markdown className="prose max-w-full text-pretty font-sans text-sm text-muted-foreground dark:prose-invert">
-                        {DATA.summary}
-                    </Markdown>
-                </BlurFade>
-            </section>
+            </aside>
+
+            {/* Scrollable Right Content */}
+            <main className="flex-1 overflow-y-auto">
+                <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-16 space-y-6">
             <section id="work">
                 <div className="flex min-h-0 flex-col gap-y-3">
                     <BlurFade delay={BLUR_FADE_DELAY * 5}>
+                        <div className="relative w-full mb-4">
+                            <img 
+                                src="/circuit.png" 
+                                alt="Circuit" 
+                                className="w-full h-auto"
+                            />
+                            <LCDOverlay />
+                        </div>
+                    </BlurFade>
+                    <BlurFade delay={BLUR_FADE_DELAY * 5.5}>
+                        <div className="mb-2">
+                            <div className="inline-block bg-gray-200/90 dark:bg-gray-800/90 px-3 py-2 rounded-sm backdrop-blur-sm shadow-lg">
+                                <p 
+                                    className="text-black dark:text-white text-xs"
+                                    style={{ 
+                                        fontFamily: '"hd44780", monospace',
+                                        fontFeatureSettings: '"liga" off'
+                                    }}
+                                >
+                                    Work Experience
+                                </p>
+                            </div>
+                        </div>
                         <h2 className="text-xl font-bold">Work Experience</h2>
                     </BlurFade>
                     {DATA.work.map((work, id) => (
@@ -233,6 +248,8 @@ export default function Page() {
                     </BlurFade>
                 </div>
             </section>
-        </main>
+                </div>
+            </main>
+        </div>
     );
 }

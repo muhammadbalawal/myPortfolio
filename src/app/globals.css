@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'hd44780';
+  src: url('/fonts/hd44780.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
     :root {
       --background: 0 0% 100%;
@@ -72,6 +80,30 @@
     }
     body {
       @apply bg-background text-foreground;
+      font-family: var(--font-space), "Space Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+      color: oklab(0.309184 0.000014022 0.00000619888 / 0.8);
+      background-image: 
+        repeating-linear-gradient(0deg, transparent, transparent 39px, hsl(var(--border) / 0.3) 39px, hsl(var(--border) / 0.3) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, hsl(var(--border) / 0.3) 39px, hsl(var(--border) / 0.3) 40px);
+      background-size: 40px 40px;
+    }
+    h1 {
+      font-family: var(--font-playfair), "Playfair Display", serif;
+      font-weight: 600;
+      font-size: 80px;
+      line-height: 80px;
+      color: oklab(0.204625 0.00000931323 0.00000409782);
+    }
+    h2, h3, h4, h5, h6 {
+      font-family: var(--font-playfair), "Playfair Display", serif;
+      font-weight: 600;
+      color: #000000;
+    }
+    .font-header {
+      font-family: var(--font-playfair), "Playfair Display", serif;
     }
   }
 

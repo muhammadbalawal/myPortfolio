@@ -1,14 +1,25 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Navbar from "@/components/navbar";
 import { cn } from "@/lib/utils";
 
-const fontSans = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
+const spaceGrotesk = localFont({
+  src: "../../public/fonts/Space_Grotesk/static/SpaceGrotesk-Medium.ttf",
+  variable: "--font-space",
+  weight: "500",
+  display: "swap",
+  fallback: ["system-ui", "-apple-system", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif"],
+});
+
+const playfairDisplay = localFont({
+  src: "../../public/fonts/Playfair_Display/static/PlayfairDisplay-SemiBold.ttf",
+  variable: "--font-playfair",
+  weight: "600",
+  display: "swap",
+  fallback: ["serif"],
 });
 
 export const metadata: Metadata = {
@@ -35,8 +46,9 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased max-w-2xl mx-auto py-12 sm:py-24 px-6",
-          fontSans.variable
+          "min-h-screen bg-background antialiased",
+          spaceGrotesk.variable,
+          playfairDisplay.variable
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="light">

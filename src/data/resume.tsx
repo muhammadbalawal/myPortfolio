@@ -4,7 +4,7 @@ import { HomeIcon, NotebookIcon } from "lucide-react";
 export const DATA = {
   name: "Muhammad Balawal Safdar",
   initials: "MBS",
-  url: "https://dillion.io",
+  url: "https://github.com/muhammadbalawal",
   location: "montreal, CA",
   locationLink: "https://www.google.com/maps/place/montreal",
   description: "CS student and builder, creating real projects across software and hardware.",

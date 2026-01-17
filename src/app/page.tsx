@@ -21,9 +21,9 @@ const BLUR_FADE_DELAY = 0.04;
 
 export default function Page() {
     return (
-        <div className="flex min-h-screen">
-            {/* Sticky Left Sidebar */}
-            <aside className="sticky top-0 h-screen flex items-center justify-center px-8 md:px-12 lg:px-16 w-full md:w-2/5 lg:w-1/3">
+        <div className="flex flex-col md:flex-row min-h-screen">
+            {/* Sticky Left Sidebar - Desktop only */}
+            <aside className="hidden md:flex sticky top-0 h-screen items-center justify-center px-8 md:px-12 lg:px-16 w-full md:w-2/5 lg:w-1/3">
                 <div className="space-y-6 max-w-md">
                     <BlurFadeText
                         delay={BLUR_FADE_DELAY}
@@ -44,23 +44,41 @@ export default function Page() {
                 </div>
             </aside>
 
+            {/* Mobile Header - Mobile only */}
+            <div className="md:hidden px-4 py-6 space-y-4">
+                <BlurFadeText
+                    delay={BLUR_FADE_DELAY}
+                    className="text-3xl font-bold tracking-tighter font-header text-black dark:text-white"
+                    yOffset={8}
+                    text={`Hi, I'm ${DATA.name.split(" ")[1]}`}
+                />
+                <div className="space-y-2">
+                    <BlurFade delay={BLUR_FADE_DELAY * 2}>
+                        <p className="text-lg font-semibold text-black dark:text-white">Software Developer</p>
+                    </BlurFade>
+                    <BlurFade delay={BLUR_FADE_DELAY * 3}>
+                        <Markdown className="prose max-w-full text-pretty font-sans text-sm text-muted-foreground dark:prose-invert">
+                            {DATA.summary}
+                        </Markdown>
+                    </BlurFade>
+                </div>
+            </div>
+
             {/* Scrollable Right Content */}
-            <main className="flex-1 overflow-y-auto">
-                <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-16 space-y-6">
+            <main className="flex-1 overflow-y-auto w-full">
+                <div className="max-w-sm sm:max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-16 space-y-6">
             <section id="live-data" className="mt-20">
                 <div className="flex min-h-0 flex-col gap-y-3">
                     <BlurFade delay={BLUR_FADE_DELAY * 5}>
-                        <div className="relative w-full mb-2 flex justify-center">
-                            <div style={{ transform: 'scale(1.2)', transformOrigin: 'center' }}>
-                                <CircuitSVG />
-                            </div>
+                        <div className="relative w-full mb-2 flex justify-center overflow-hidden">
+                            <CircuitSVG />
                         </div>
                     </BlurFade>
                     <BlurFade delay={BLUR_FADE_DELAY * 5.5}>
                         <div className="mb-4 mt-4 flex justify-center">
                             <div className="inline-block bg-gray-200/90 dark:bg-gray-800/90 px-3 py-2 rounded-sm backdrop-blur-sm shadow-lg">
                                 <p 
-                                    className="text-black dark:text-white text-xs"
+                                    className="text-black dark:text-white text-[8px] sm:text-xs"
                                     style={{ 
                                         fontFamily: '"hd44780", monospace',
                                         fontFeatureSettings: '"liga" off'

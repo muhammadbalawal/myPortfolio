@@ -70,7 +70,7 @@ export default function Page() {
             <section id="live-data" className="mt-20">
                 <div className="flex min-h-0 flex-col gap-y-3">
                     <BlurFade delay={BLUR_FADE_DELAY * 5}>
-                        <div className="relative w-full mb-2 flex justify-center overflow-hidden">
+                        <div className="relative w-full mb-2 flex justify-center overflow-visible px-2 sm:px-0">
                             <CircuitSVG />
                         </div>
                     </BlurFade>

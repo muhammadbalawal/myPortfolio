@@ -64,7 +64,7 @@ const CircuitSVG = ({ ...props }: CircuitSVGProps) => {
       width={1180}
       height={430}
       viewBox="0 0 2947 1075"
-      className="w-full h-auto max-w-[90%] sm:max-w-full"
+      className="w-full h-auto max-w-full sm:max-w-full scale-110 sm:scale-100"
       style={{ overflow: "visible" }}
       {...props}
     >

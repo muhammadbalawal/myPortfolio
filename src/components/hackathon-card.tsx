@@ -1,4 +1,3 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 
@@ -7,7 +6,7 @@ interface Props {
   description: string;
   dates: string;
   location: string;
-  image?: string;
+  win?: string;
   links?: readonly {
     icon: React.ReactNode;
     title: string;
@@ -20,43 +19,46 @@ export function HackathonCard({
   description,
   dates,
   location,
-  image,
+  win,
   links,
 }: Props) {
   return (
-    <li className="relative ml-10 py-4">
-      <div className="absolute -left-16 top-2 flex items-center justify-center bg-white rounded-full">
-        <Avatar className="border size-12 m-auto">
-          <AvatarImage src={image} alt={title} className="object-contain" />
-          <AvatarFallback>{title[0]}</AvatarFallback>
-        </Avatar>
-      </div>
-      <div className="flex flex-1 flex-col justify-start gap-1">
-        {dates && (
-          <time className="text-xs text-muted-foreground">{dates}</time>
-        )}
-        <h2 className="font-semibold leading-none">{title}</h2>
-        {location && (
-          <p className="text-sm text-muted-foreground">{location}</p>
-        )}
-        {description && (
-          <span className="prose dark:prose-invert text-sm text-muted-foreground">
-            {description}
-          </span>
-        )}
-      </div>
-      {links && links.length > 0 && (
-        <div className="mt-2 flex flex-row flex-wrap items-start gap-2">
-          {links?.map((link, idx) => (
-            <Link href={link.href} key={idx}>
-              <Badge key={idx} title={link.title} className="flex gap-2">
-                {link.icon}
-                {link.title}
+    <li className="relative py-4">
+      <div className="border border-black dark:border-white bg-white dark:bg-card px-5 py-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
+        <div className="flex flex-1 flex-col justify-start gap-2">
+          {dates && (
+            <time className="text-xs font-medium text-muted-foreground uppercase tracking-wide">{dates}</time>
+          )}
+          <div className="flex items-center gap-2 flex-wrap">
+            <h2 className="font-semibold text-lg leading-tight text-foreground dark:text-foreground">{title}</h2>
+            {win && (
+              <Badge variant="default" className="bg-blue-600 hover:bg-blue-700 text-white border-0 px-2.5 py-1 text-xs font-medium">
+                {win}
               </Badge>
-            </Link>
-          ))}
+            )}
+          </div>
+          {location && (
+            <p className="text-sm text-muted-foreground dark:text-muted-foreground">{location}</p>
+          )}
+          {description && (
+            <p className="text-sm text-muted-foreground dark:text-muted-foreground leading-relaxed mt-1">
+              {description}
+            </p>
+          )}
         </div>
-      )}
+        {links && links.length > 0 && (
+          <div className="mt-4 flex flex-row flex-wrap items-start gap-2 pt-3 border-t border-black dark:border-white">
+            {links?.map((link, idx) => (
+              <Link href={link.href} key={idx} className="transition-opacity hover:opacity-80">
+                <Badge key={idx} title={link.title} variant="secondary" className="flex gap-1.5 px-2.5 py-1 text-xs font-medium">
+                  {link.icon}
+                  {link.title}
+                </Badge>
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
     </li>
   );
 }

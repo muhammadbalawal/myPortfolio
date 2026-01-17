@@ -112,7 +112,7 @@ export const DATA = {
       dates: "April 2025",
       active: true,
       description:
-        "Hackathon Winner – 1st Place @ JACHacks 2025, Built a real time traffic accident detection platform using live city camera feeds. Used machine learning to detect crashes, Gemini AI to auto generate reports, and Twilio to instantly notify emergency services all in seconds.",
+        "Built a real time traffic accident detection platform using live city camera feeds. Used machine learning to detect crashes, Gemini AI to auto generate reports, and Twilio to instantly notify emergency services all in seconds.",
       technologies: [
         "gemini-ai-api",
         "leaflet",
@@ -132,53 +132,37 @@ export const DATA = {
       image: "/sentinel.jpg",
       video:
         "",
+      winner: true,
+      win: "* Winner @ JACHacks 2025",
     },
     {
-      title: "Break Mates",
-      href: "https://magicui.design",
-      dates: "June 2023 - Present",
+      title: "Remoto",
+      href: "https://github.com/muhammadbalawal/remoto",
+      dates: "2025",
       active: true,
       description:
-        "Used by multiple CEGEPs and universities, Break Mates helps students connect with peers who share the same break times. It’s a simple way to meet new friends, coordinate breaks, and stay socially connected.",
+        "Voice-controlled remote computer access system that enables secure control of your computer from anywhere through voice commands. Combines speech recognition, persistent AI memory, and real-time streaming. Features speech-to-text, authentication, low-latency live streaming, screen analysis with OpenCV and Tesseract OCR, and AI-powered command execution with workflow learning.",
       technologies: [
-        "TensorFlow NSFWJS",
-        "React Native",
-        "TypeScript",
-        "Supabase",
-        "TailwindCSS",
-        "Expo",
+        "react",
+        "opencv",
+        "tesseract-ocr",
+        "ffmpeg",
+        "mediamtx",
+        "cloudflare",
+        "python",
+        "backboard-io",
       ],
       links: [
         {
-          type: "App Store",
-          href: "https://apps.apple.com/us/app/break-mates/id6751444568",
-          icon: <Icons.globe className="size-3" />,
+          type: "GitHub",
+          href: "https://github.com/muhammadbalawal/remoto",
+          icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/breakmatesapp.png",
+      image: "",
       video: "",
-    },
-    {
-      title: "Gurobu",
-      href: "https://magicui.design",
-      dates: "April 2021 - May 2021",
-      active: true,
-      description:
-      "Gurobu is a communication glove that translates sign language into text, helping bridge the gap between ASL users and non-signers.",
-      technologies: [
-        "Arduino",
-        "Flex Sensors",
-        "Motion Sensors",
-      ],
-      links: [
-        {
-          type: "youtube",
-          href: "https://www.youtube.com/watch?v=l4LKDM_NZd4",
-          icon: <Icons.youtube className="size-3" />,
-        },
-      ],
-      image: "/gurobo.gif",
-      video: "",
+      winner: true,
+      win: "* Winner @ McGill 2025",
     },
   ],
   hackathons: [
@@ -188,7 +172,6 @@ export const DATA = {
       location: "Montreal, CA",
       description:
         "EyeCrop combines AI and smart hardware to protect homegrown fruits from birds and rodents in realtime. With a web app for remote monitoring and data tracking, it makes sustainable gardening simple and accessible.",
-      image:"/udemhacks.png",
       mlh: "",
       links: [
         {
@@ -206,7 +189,6 @@ export const DATA = {
       location: "Montreal, CA",
       description:
         "InterAce transforms the interview prep experience by simulating real-time conversations with AI interviewers, complete with facial expressions, lip-sync, and technical coding challenges. Built with cutting edge tools like Three.js, LiveKit, and FastAPI, it offers detailed performance insights to help users land their dream tech job.",
-      image:"/bagelhacks.png",
       mlh: "",
       links: [
         {
@@ -224,7 +206,6 @@ export const DATA = {
       location: "Montreal, CA",
       description:
         "Echo activates when emergency calls go unanswered, using AI to gather critical information, geolocate the caller, and send real-time reports to first responders. It earned an Honourable Mention in the AI Challenge at MariHacks 8.0 for its potential to save lives in high-stakes situations.",
-      image:"/marihacks.png",
       mlh: "",
       links: [
         {
@@ -242,8 +223,8 @@ export const DATA = {
       location: "Montreal, CA",
       description:
         "Sentinel is an end-to-end accident response platform that uses TensorFlow, Gemini AI, and Twilio to detect crashes from live traffic camera feeds, generate structured reports, and instantly notify emergency services all within seconds. It won first place overall at JACHacks 2025 for its potential to save lives using only existing city infrastructure.",
-      image:"/jachacks.png",
       mlh: "",
+      win: "1st Place @ JACHacks 2025",
       links: [
         {
           type: "Devpost",
@@ -260,7 +241,6 @@ export const DATA = {
       location: "Montreal, CA",
       description:
         "Synapse is a powerful Chrome extension that leverages advanced AI to semantically analyze and search through YouTube video transcripts, allowing users to instantly navigate and jump directly to the exact moments they need—making research and learning faster and more efficient; this innovative tool was proudly awarded an Honourable Mention at miniDawsHacks 25 for its impact and technical excellence",
-      image:"/minidaws.jpg",
       mlh: "",
       links: [
         {

@@ -6,8 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
-import Image from "next/image";
+import { WinnerBadge } from "@/components/winner-badge";
 import Link from "next/link";
 import Markdown from "react-markdown";
 
@@ -20,6 +19,8 @@ interface Props {
   link?: string;
   image?: string;
   video?: string;
+  winner?: boolean;
+  win?: string;
   links?: readonly {
     icon: React.ReactNode;
     type: string;
@@ -38,68 +39,74 @@ export function ProjectCard({
   link,
   image,
   video,
+  winner,
+  win,
   links,
   className,
 }: Props) {
   return (
     <Card
       className={
-        "flex flex-col overflow-hidden border hover:shadow-lg transition-all duration-300 ease-out h-full"
+        "relative flex flex-col overflow-visible border-2 border-black dark:border-white hover:shadow-lg transition-all duration-300 ease-out h-full font-sans"
       }
     >
-      <Link
-        href={href || "#"}
-        className={cn("block cursor-pointer", className)}
-      >
-        {video && (
-          <video
-            src={video}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="pointer-events-none mx-auto h-40 w-full object-cover object-top" // needed because random black line at bottom of video
-          />
-        )}
-        {image && (
-          <Image
-            src={image}
-            alt={title}
-            width={500}
-            height={300}
-            className="h-40 w-full overflow-hidden object-cover object-top"
-          />
-        )}
-      </Link>
-      <CardHeader className="px-2">
-        <div className="space-y-1">
-          <CardTitle className="mt-1 text-base">{title}</CardTitle>
-          <time className="font-sans text-xs">{dates}</time>
-          <div className="hidden font-sans text-xs underline print:visible">
-            {link?.replace("https://", "").replace("www.", "").replace("/", "")}
-          </div>
-          <Markdown className="prose max-w-full text-pretty font-sans text-xs text-muted-foreground dark:prose-invert">
-            {description}
-          </Markdown>
+      {winner && (
+        <WinnerBadge className="absolute -top-[30px] -right-[30px] z-10 w-[60px] h-[60px] rotate-12" />
+      )}
+      <div className="flex flex-col p-3">
+        {/* Content */}
+        <div className="flex flex-col flex-1 min-w-0">
+          <CardHeader className="px-0 py-0">
+            <div className="space-y-1">
+              <div className="flex items-center justify-between gap-2 flex-wrap">
+                <CardTitle className="text-base text-foreground dark:text-foreground font-sans">{title}</CardTitle>
+                {win && (
+                  <div className="inline-block bg-gray-200/90 dark:bg-gray-800/90 px-1 py-0.5 rounded-sm backdrop-blur-sm shadow-lg">
+                    <p 
+                      className="text-black dark:text-white text-[8px]"
+                      style={{ 
+                        fontFamily: '"hd44780", monospace',
+                        fontFeatureSettings: '"liga" off'
+                      }}
+                    >
+                      {win}
+                    </p>
+                  </div>
+                )}
+              </div>
+              <div className="hidden text-xs underline print:visible">
+                {link?.replace("https://", "").replace("www.", "").replace("/", "")}
+              </div>
+            </div>
+          </CardHeader>
+          
+          {/* Tags below title/date */}
+          {tags && tags.length > 0 && (
+            <div className="mt-2 flex flex-wrap gap-1">
+              {tags?.map((tag) => (
+                <Badge
+                  className="px-1 py-0 text-[10px]"
+                  variant="secondary"
+                  key={tag}
+                >
+                  {tag}
+                </Badge>
+              ))}
+            </div>
+          )}
         </div>
-      </CardHeader>
-      <CardContent className="mt-auto flex flex-col px-2">
-        {tags && tags.length > 0 && (
-          <div className="mt-2 flex flex-wrap gap-1">
-            {tags?.map((tag) => (
-              <Badge
-                className="px-1 py-0 text-[10px]"
-                variant="secondary"
-                key={tag}
-              >
-                {tag}
-              </Badge>
-            ))}
-          </div>
-        )}
+      </div>
+      
+      {/* Description at the bottom */}
+      <CardContent className="px-3 pb-3 pt-0">
+        <Markdown className="prose max-w-full text-pretty text-xs text-muted-foreground dark:prose-invert">
+          {description}
+        </Markdown>
       </CardContent>
-      <CardFooter className="px-2 pb-2">
-        {links && links.length > 0 && (
+      
+      {/* Links footer */}
+      {links && links.length > 0 && (
+        <CardFooter className="px-3 pb-3 pt-0">
           <div className="flex flex-row flex-wrap items-start gap-1">
             {links?.map((link, idx) => (
               <Link href={link?.href} key={idx} target="_blank">
@@ -110,8 +117,8 @@ export function ProjectCard({
               </Link>
             ))}
           </div>
-        )}
-      </CardFooter>
+        </CardFooter>
+      )}
     </Card>
   );
 }

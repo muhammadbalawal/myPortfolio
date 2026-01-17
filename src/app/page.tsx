@@ -33,7 +33,7 @@ export default function Page() {
                     />
                     <div className="space-y-3">
                         <BlurFade delay={BLUR_FADE_DELAY * 2}>
-                            <p className="text-xl md:text-2xl lg:text-3xl font-semibold text-black dark:text-white">Mobile Application Developer</p>
+                            <p className="text-xl md:text-2xl lg:text-3xl font-semibold text-black dark:text-white">Software Developer</p>
                         </BlurFade>
                         <BlurFade delay={BLUR_FADE_DELAY * 3}>
                             <Markdown className="prose max-w-full text-pretty font-sans text-lg text-muted-foreground dark:prose-invert">
@@ -73,10 +73,12 @@ export default function Page() {
                     </BlurFade>
                 </div>
             </section>
-            <section id="work">
+            {/* <section id="work">
                 <div className="flex min-h-0 flex-col gap-y-3">
-                    {/* <h2 className="text-xl font-bold">Work Experience</h2> */}
-                    {/* {DATA.work.map((work, id) => (
+                    <BlurFade delay={BLUR_FADE_DELAY * 5.5}>
+                        <h2 className="text-xl font-bold">Work Experience</h2>
+                    </BlurFade>
+                    {DATA.work.map((work, id) => (
                         <BlurFade
                             key={work.company}
                             delay={BLUR_FADE_DELAY * 6 + id * 0.05}
@@ -95,10 +97,10 @@ export default function Page() {
                                 description={work.description}
                             />
                         </BlurFade>
-                    ))} */}
+                    ))}
                 </div>
             </section>
-            {/* <section id="education">
+            <section id="education">
                 <div className="flex min-h-0 flex-col gap-y-3">
                     <BlurFade delay={BLUR_FADE_DELAY * 7}>
                         <h2 className="text-xl font-bold">Education</h2>
@@ -137,28 +139,31 @@ export default function Page() {
                         ))}
                     </div>
                 </div>
-            </section>
+            </section> */}
             <section id="projects">
                 <div className="space-y-12 w-full py-12">
                     <BlurFade delay={BLUR_FADE_DELAY * 11}>
                         <div className="flex flex-col items-center justify-center space-y-4 text-center">
                             <div className="space-y-2">
-                                <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
-                                    My Projects
-                                </div>
-                                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl dark:text-white">
                                     Check out my latest work
                                 </h2>
                                 <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                                    I&apos;ve worked on a variety of projects,
-                                    from simple websites to complex web
-                                    applications. Here are a few of my
-                                    favorites.
+                                    Here are some projects. For more, check out my{" "}
+                                    <Link
+                                        href={DATA.contact.social.GitHub.url}
+                                        className="text-blue-500 hover:underline"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        GitHub
+                                    </Link>
+                                    .
                                 </p>
                             </div>
                         </div>
                     </BlurFade>
-                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 max-w-[800px] mx-auto">
+                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 max-w-[800px] mx-auto">
                         {DATA.projects.map((project, id) => (
                             <BlurFade
                                 key={project.title}
@@ -173,6 +178,8 @@ export default function Page() {
                                     tags={project.technologies}
                                     image={project.image}
                                     video={project.video}
+                                    winner={(project as any).winner}
+                                    win={(project as any).win}
                                     links={project.links}
                                 />
                             </BlurFade>
@@ -180,32 +187,24 @@ export default function Page() {
                     </div>
                 </div>
             </section>
-            <section id="hackathons">
+            {/* <section id="hackathons">
                 <div className="space-y-12 w-full py-12">
                     <BlurFade delay={BLUR_FADE_DELAY * 13}>
                         <div className="flex flex-col items-center justify-center space-y-4 text-center">
                             <div className="space-y-2">
-                                <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
-                                    Hackathons
-                                </div>
                                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
                                     I like building things
                                 </h2>
                                 <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                                     During my time in Computer Science, I
                                     attended {DATA.hackathons.length}+
-                                    hackathons. People from different school
-                                    would come together and build incredible
-                                    things in 2-3 days. It was eye-opening to
-                                    see the endless possibilities brought to
-                                    life by a group of motivated and passionate
-                                    individuals.
+                                    hackathons. These taught me more about building and working in a team.
                                 </p>
                             </div>
                         </div>
                     </BlurFade>
                     <BlurFade delay={BLUR_FADE_DELAY * 14}>
-                        <ul className="mb-4 ml-4 divide-y divide-dashed border-l">
+                        <ul className="mb-4 ml-4 divide-y divide-black/10 dark:divide-white/10 border-l border-black/20 dark:border-white/20">
                             {DATA.hackathons.map((project, id) => (
                                 <BlurFade
                                     key={project.title + project.dates}
@@ -216,7 +215,7 @@ export default function Page() {
                                         description={project.description}
                                         location={project.location}
                                         dates={project.dates}
-                                        image={project.image}
+                                        win={(project as any).win}
                                         links={project.links}
                                     />
                                 </BlurFade>
@@ -224,15 +223,12 @@ export default function Page() {
                         </ul>
                     </BlurFade>
                 </div>
-            </section>
+            </section> */}
             <section id="contact">
                 <div className="grid items-center justify-center gap-4 px-4 text-center md:px-6 w-full py-12">
                     <BlurFade delay={BLUR_FADE_DELAY * 16}>
                         <div className="space-y-3">
-                            <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
-                                Contact
-                            </div>
-                            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl dark:text-white">
                                 Get in Touch
                             </h2>
                             <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
@@ -248,7 +244,7 @@ export default function Page() {
                         </div>
                     </BlurFade>
                 </div>
-            </section> */}
+            </section>
                 </div>
             </main>
         </div>

@@ -9,38 +9,53 @@ interface CircuitSVGProps extends React.SVGProps<SVGSVGElement> {}
 const CircuitSVG = ({ ...props }: CircuitSVGProps) => {
   const [uniqueUsers, setUniqueUsers] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [textVisible, setTextVisible] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
+  const [dots, setDots] = useState("...");
 
-  useEffect(() => {
+  const fetchData = async () => {
     let userId = localStorage.getItem("userId");
     if (!userId) {
       userId = uuidv4();
       localStorage.setItem("userId", userId);
     }
 
-    async function registerAndFetch() {
-      try {
-        setIsLoading(true);
-        await fetch("/api/unique-views", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId }),
+    try {
+      setIsLoading(true);
+      setDots("...");
+      
+      // Animate dots while loading
+      const dotInterval = setInterval(() => {
+        setDots((prev) => {
+          if (prev === "...") return ". ..";
+          if (prev === ". ..") return ".. .";
+          if (prev === ".. .") return "... ";
+          return "...";
         });
+      }, 400);
 
-        const res = await fetch("/api/unique-views");
-        const data = await res.json();
-        if (res.ok) setUniqueUsers(data.uniqueVisitors);
-        else console.error("API error:", data.error);
-      } catch (error) {
-        console.error("Fetch/register error:", error);
-      } finally {
-        setIsLoading(false);
-      }
+      await fetch("/api/unique-views", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId }),
+      });
+
+      const res = await fetch("/api/unique-views");
+      const data = await res.json();
+      if (res.ok) setUniqueUsers(data.uniqueVisitors);
+      else console.error("API error:", data.error);
+      
+      clearInterval(dotInterval);
+    } catch (error) {
+      console.error("Fetch/register error:", error);
+    } finally {
+      setIsLoading(false);
+      setDots("...");
     }
+  };
 
-    registerAndFetch();
+  useEffect(() => {
+    fetchData();
   }, []);
 
   return (
@@ -72,28 +87,26 @@ const CircuitSVG = ({ ...props }: CircuitSVGProps) => {
         stroke="#6f8f2a"
         strokeWidth={11}
       />
-      {textVisible && (
-        <text
-          id="lcd_data"
-          x={2080}
-          y={550}
-          fontFamily="hd44780, monospace"
-          fontSize={64}
-          fill="#1f2a10"
-          style={{
-            fontFeatureSettings: '"liga" off',
-          }}
-        >
-          <tspan x={2080} dy="0">Unique Users:</tspan>
-          <tspan x={2080} dy="80" fontWeight="bold">
-            {isLoading
-              ? "..."
-              : uniqueUsers !== null
-              ? uniqueUsers.toString()
-              : "0"}
-          </tspan>
-        </text>
-      )}
+      <text
+        id="lcd_data"
+        x={2080}
+        y={550}
+        fontFamily="hd44780, monospace"
+        fontSize={64}
+        fill="#1f2a10"
+        style={{
+          fontFeatureSettings: '"liga" off',
+        }}
+      >
+        <tspan x={2080} dy="0">Unique Users:</tspan>
+        <tspan x={2080} dy="80" fontWeight="bold">
+          {isLoading
+            ? dots
+            : uniqueUsers !== null
+            ? uniqueUsers.toString()
+            : "0"}
+        </tspan>
+      </text>
       <g>
         <defs>
           <filter id="buttonShadow" x="-50%" y="-50%" width="200%" height="200%">
@@ -169,7 +182,7 @@ const CircuitSVG = ({ ...props }: CircuitSVGProps) => {
             transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
             filter: isHovered ? "url(#buttonGlow)" : "url(#buttonShadow)",
           }}
-          onClick={() => setTextVisible(!textVisible)}
+          onClick={() => fetchData()}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => {
             setIsHovered(false);

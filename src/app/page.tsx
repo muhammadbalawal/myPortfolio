@@ -10,12 +10,7 @@ import Link from "next/link";
 import Markdown from "react-markdown";
 
 import { Suspense } from "react";
-import dynamic from "next/dynamic";
 import CircuitSVG from "@/components/circuit-svg";
-
-const ArduinoScene = dynamic(() => import("@/components/lcd-scene"), {
-    ssr: false,
-});
 
 const BLUR_FADE_DELAY = 0.04;
 

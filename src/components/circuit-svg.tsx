@@ -135,7 +135,7 @@ const CircuitSVG = ({ ...props }: CircuitSVGProps) => {
                   opacity: 0.8;
                 }
                 100% {
-                  transform: scale(2.5);
+                  transform: scale(4);
                   opacity: 0;
                 }
               }
@@ -210,7 +210,7 @@ const CircuitSVG = ({ ...props }: CircuitSVGProps) => {
           r={40}
           fill="none"
           stroke="#8fb43a"
-          strokeWidth={5}
+          strokeWidth={8}
           className="continuous-ripple"
           style={{
             pointerEvents: "none",
@@ -222,7 +222,7 @@ const CircuitSVG = ({ ...props }: CircuitSVGProps) => {
           r={40}
           fill="none"
           stroke="#8fb43a"
-          strokeWidth={5}
+          strokeWidth={8}
           className="continuous-ripple-delay-1"
           style={{
             pointerEvents: "none",
@@ -234,7 +234,7 @@ const CircuitSVG = ({ ...props }: CircuitSVGProps) => {
           r={40}
           fill="none"
           stroke="#8fb43a"
-          strokeWidth={5}
+          strokeWidth={8}
           className="continuous-ripple-delay-2"
           style={{
             pointerEvents: "none",
